@@ -11,6 +11,6 @@ Here are some ideas to get you started:
 - 🤔 I’m looking for help with ...
 - 💬 Ask me about Nothing, I don't know anything.
 - 📫 How to reach me: Don't.
-- 😄 Pronouns: ...
+- 😄 Pronouns: He/him.
 - ⚡ Fun fact: I am still alive.
 -->
