@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Samengestelde Interest Berekening</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+        h1 { color: #2c3e50; }
+        label { display: block; margin-top: 12px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+        button { margin-top: 20px; padding: 10px 24px; background: #2c3e50; color: white; border: none; cursor: pointer; }
+        .result { margin-top: 30px; background: #ecf0f1; padding: 20px; border-radius: 6px; }
+        .result h2 { color: #27ae60; }
+        .error { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>📈 Samengestelde Interest Simulator</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="principal">Beginkapitaal (€)</label>
+        <input type="number" id="principal" name="principal" step="0.01" min="0"
+               value="{{ principal }}" required>
+
+        <label for="rate">Jaarlijkse rentevoet (%)</label>
+        <input type="number" id="rate" name="rate" step="0.01" min="0"
+               value="{{ rate }}" required>
+
+        <label for="years">Looptijd (jaren)</label>
+        <input type="number" id="years" name="years" step="0.5" min="0"
+               value="{{ years }}" required>
+
+        <label for="frequency">Kapitalisatiefrequentie</label>
+        <select id="frequency" name="frequency">
+            <option value="1"  {% if frequency == 1  %}selected{% endif %}>Jaarlijks</option>
+            <option value="2"  {% if frequency == 2  %}selected{% endif %}>Halfjaarlijks</option>
+            <option value="4"  {% if frequency == 4  %}selected{% endif %}>Driemaandelijks</option>
+            <option value="12" {% if frequency == 12 %}selected{% endif %}>Maandelijks</option>
+        </select>
+
+        <button type="submit">Berekenen</button>
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if final_amount %}
+    <div class="result">
+        <h2>Resultaten</h2>
+        <p><strong>Beginkapitaal:</strong> {{ principal }} €</p>
+        <p><strong>Jaarlijkse rentevoet:</strong> {{ rate }} %</p>
+        <p><strong>Looptijd:</strong> {{ years }} jaar</p>
+        <p><strong>Eindbedrag:</strong> {{ final_amount }} €</p>
+        <p><strong>Gegenereerde interest:</strong> {{ interests }} €</p>
+    </div>
+    {% endif %}
+
+</body>
+</html>
+
